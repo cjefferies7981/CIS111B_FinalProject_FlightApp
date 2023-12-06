@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="346.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox fx:id="upperVBox" alignment="TOP_CENTER" layoutX="12.0" layoutY="9.0" prefHeight="224.0" prefWidth="323.0" spacing="10.0">
+         <children>
+            <Label fx:id="titleLabel" text="&lt;&lt;Flight Tracker&gt;&gt;">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="flightInput" alignment="CENTER" promptText="Enter your flight number i.e., 1234" />
+            <Button fx:id="btnFlightStatus" mnemonicParsing="false" onAction="#ShowFlightStatus" text="Show Flight Status" />
+            <Label fx:id="messageArea" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="323.0" text="messageArea" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="flightStatus" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="372.0" text="flightStatus" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="airline" alignment="CENTER" prefHeight="17.0" prefWidth="413.0" text="airline" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="aircraftModel" alignment="CENTER" prefHeight="17.0" prefWidth="390.0" text="aircraftModel" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="leftVBox" layoutX="12.0" layoutY="292.0" prefHeight="75.0" prefWidth="156.0" spacing="10.0">
+         <children>
+            <Label fx:id="departureDateTime" alignment="CENTER" prefHeight="21.0" prefWidth="156.0" text="departureDateTime">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="departureAirportGate" alignment="CENTER" prefHeight="17.0" prefWidth="164.0" text="departureAirportGate">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox fx:id="rightVBox" layoutX="179.0" layoutY="292.0" prefHeight="75.0" prefWidth="156.0" spacing="10.0">
+         <children>
+            <Label fx:id="arrivalDateTime" alignment="CENTER" prefHeight="17.0" prefWidth="158.0" text="arrivalDateTime">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="arrivalAirportGate" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="180.0" text="arrivalAirportGate" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="1.0" layoutY="367.0" prefHeight="43.0" prefWidth="346.0" spacing="10.0">
+         <children>
+            <RadioButton fx:id="normalTime" mnemonicParsing="false" onAction="#updateDates" text="normalTime">
+               <toggleGroup>
+                  <ToggleGroup fx:id="timePreference" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="militaryTime" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateDates" text="militaryTime" toggleGroup="$timePreference" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
