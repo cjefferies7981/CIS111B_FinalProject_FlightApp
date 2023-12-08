@@ -79,7 +79,7 @@ public class FlightTrackingAppController //implements Initializable
    
    // Actions to perform when the format radio buttons are pushed
    @FXML
-   protected void handleTimeConversionRadioButtonAction(ActionEvent event) {
+   protected void timeFormatChangeRadioButton(ActionEvent event) {
        
       // Update units based on which radio button was pressed
       if(event.getSource() == normalTime)
@@ -90,9 +90,39 @@ public class FlightTrackingAppController //implements Initializable
       // Save time format selection
       Preferences z = Preferences.userNodeForPackage(FlightTrackingAppController.class);
       z.put(TIME_FORMAT, this.time.toString() );
+      
+      // Reflect changes in user-interface
+      //updateUI();
    }
-   
-   /**   
+   /**
+   protected void updateUI()
+   {
+      if(this.flight.data != null)
+      {
+         // Update flight status
+         flightStatus.
+         
+         // Update
+         airline.
+         
+         // Update
+         aircraftModel.
+         
+         // Update
+         departureDateTime.
+         
+         // Update
+         departureAirportGate.
+         
+         // Update
+         arrivalDateTime.
+         
+         // Update
+         arrivalAirportGate.
+         
+   }
+   */
+   /**  
    // This method implements the Initializable interface
    // This is how we can respond to the scene "waking up"
    @Override
@@ -107,5 +137,6 @@ public class FlightTrackingAppController //implements Initializable
          this.normalTime.setSelected(true);
        else
          this.militaryTime.setSelected(true);
+         
       */
 }
