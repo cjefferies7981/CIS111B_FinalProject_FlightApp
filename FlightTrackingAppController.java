@@ -64,7 +64,7 @@ public class FlightTrackingAppController //implements Initializable
    @FXML
    private RadioButton militaryTime;
    
-   // Used to retrieve data from the API   
+   // Gather API data   
    private HttpClient client;
    
    // Top-level class that saves GSON processed JSON data
@@ -122,9 +122,19 @@ public class FlightTrackingAppController //implements Initializable
          
    }
    */
-   /**  
-   // This method implements the Initializable interface
-   // This is how we can respond to the scene "waking up"
+   protected void updateFlightData()
+   {
+      if(this.client == null)
+         this.client = HttpClient.newHttpClient();
+      
+      try
+      {
+         HttpRequest request = HttpRequest.newBuilder();
+      }
+   }
+   
+    
+   // "Waking up" applicatoin and setting preserved preferences
    @Override
    public void initialize(URL location, ResourceBundle resources) {
 
@@ -138,5 +148,6 @@ public class FlightTrackingAppController //implements Initializable
        else
          this.militaryTime.setSelected(true);
          
-      */
+      updateFlightData();
+      
 }
