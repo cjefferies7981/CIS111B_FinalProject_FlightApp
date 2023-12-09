@@ -20,9 +20,8 @@ import java.net.URISyntaxException;
 import java.io.IOException;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-public class FlightTrackingAppController //implements Initializable
+public class FlightTrackingAppController implements Initializable
 {
    // Variables from FXML file using annotations 
    @FXML
@@ -74,12 +73,23 @@ public class FlightTrackingAppController //implements Initializable
    private enum Time { NORMAL, MILITARY };
    private Time time;
    
+   // Keeps track of last time the weather data was updated
+   private Date updateTime;
+   
    // Key to persist time format preference
    public static final String TIME_FORMAT = "time_format_key";
    
+   // Action to perform when the refresh button is pressed
+   @FXML 
+   protected void btnFlightStatusButtonAction(ActionEvent event)
+   {
+      updateFlightData();       
+   }
+   
    // Actions to perform when the format radio buttons are pushed
    @FXML
-   protected void timeFormatChangeRadioButton(ActionEvent event) {
+   protected void timeFormatChangeRadioButton(ActionEvent event)
+   {
        
       // Update units based on which radio button was pressed
       if(event.getSource() == normalTime)
@@ -92,36 +102,71 @@ public class FlightTrackingAppController //implements Initializable
       z.put(TIME_FORMAT, this.time.toString() );
       
       // Reflect changes in user-interface
-      //updateUI();
+      updateUI();
    }
-   /**
+   
+   // IN PROGRESS
    protected void updateUI()
    {
       if(this.flight.data != null)
       {
          // Update flight status
-         flightStatus.
+         flightStatus.setText(flightStatus.getText());
          
-         // Update
-         airline.
+         // Set the airline
+         airline.setText(airline.getText());
          
-         // Update
-         aircraftModel.
+         // Set the aircraft model
+         aircraftModel.setText(aircraftModel.getText());
          
-         // Update
-         departureDateTime.
+         // Update the departure time
+         departureDateTime.setText(departureDateTime.getText());
          
-         // Update
-         departureAirportGate.
+         // Update the departing airport gate
+         departureAirportGate.setText(departureAirportGate.getText());
          
-         // Update
-         arrivalDateTime.
+         // Update the arrival date
+         arrivalDateTime.setText(arrivalDateTime.getText());
          
-         // Update
-         arrivalAirportGate.
-         
+         // Update the arriving airport gate
+         arrivalAirportGate.setText(arrivalAirportGate.getText());
+      }
+    }
+   
+   
+   // This method parses the JSON and creates POJO
+   protected void processFlightData(String data)
+   {
+            
+      // Save the time this data was retrieved to be displayed in the GUI
+      this.updateTime = new Date();
+      
+      // Some debugging text for the console. Allows us to view returned JSON
+      System.out.println(data);      
+      
+      // Use GSON to convert the JSON to a POJO (whew, that's a lot of acronyms!)
+      // If JSON is not valid then just return
+      Gson gson = new Gson();
+      try
+      {
+         this.flight = gson.fromJson(data, Flight.class);      
+      }
+      catch (Exception e)
+      {
+         System.out.println("GSON Parsing Failed");
+         return;
+      }            
+      // Schedule UI updates on the GUI thread
+      Platform.runLater( new Runnable()
+      {
+         public void run()
+            {
+               updateUI();
+            }
+      });
    }
-   */
+   
+   // This method runs when the user pushes the show flight status button and once the app is initialized
    protected void updateFlightData()
    {
       if(this.client == null)
@@ -129,25 +174,38 @@ public class FlightTrackingAppController //implements Initializable
       
       try
       {
-         HttpRequest request = HttpRequest.newBuilder();
+         HttpRequest request = HttpRequest.newBuilder()
+                                          .uri(new URI("https://api.aviationstack.com/v1/flights" + System.getenv("APIKEY") ))
+                                          .GET()
+                                          .build();
+                                          
+         client.sendAsync(request, BodyHandlers.ofString())
+                 .thenApply(HttpResponse::body)
+                 .thenAccept(this::processFlightData);
+      }
+      catch(URISyntaxException e)
+      {
+         System.out.println("Issue with request");
       }
    }
    
     
    // "Waking up" applicatoin and setting preserved preferences
    @Override
-   public void initialize(URL location, ResourceBundle resources) {
+   public void initialize(URL location, ResourceBundle resources)
+   {
 
       // Passes the time format to set
       // App defaults to normal time format
       Preferences z = Preferences.userNodeForPackage(FlightTrackingAppController.class);
-      this.unit = Unit.valueOf( z.get(TIME_FORMAT, Unit.MILITARY.toString() ) );
+      this.time = Time.valueOf( z.get(TIME_FORMAT, Time.MILITARY.toString() ) );
       
-       if(this.unit == Unit.NORMAL)
+       if(this.time == Time.NORMAL)
          this.normalTime.setSelected(true);
        else
          this.militaryTime.setSelected(true);
          
       updateFlightData();
+    }
       
 }

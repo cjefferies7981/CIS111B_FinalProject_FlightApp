@@ -2,8 +2,27 @@ public class Data
 {
    // Top-level class properties
    public String flightStatus;
-   public String Departure;
-   public String arrival;
-   public String aircraft;
-   public String airline;
+   public class Departure
+   {
+      public String iata;
+      public String scheduled;
+      public String gate;
+   }
+   
+   public class arrival
+   {
+      public String iata;
+      public String scheduled;
+      public String gate;
+   }
+   
+   public class aircraft
+   {
+      public String iata;
+   }
+   
+   public class airline
+   {
+      public String name;
+   }
 }
