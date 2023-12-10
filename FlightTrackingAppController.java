@@ -19,6 +19,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.io.IOException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import com.google.gson.Gson;
 
 public class FlightTrackingAppController implements Initializable
@@ -171,11 +174,16 @@ public class FlightTrackingAppController implements Initializable
    {
       if(this.client == null)
          this.client = HttpClient.newHttpClient();
-      
+
+      // We are only getting the flight on the current date
+      LocalDate flightDate = LocalDate.now();
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      String formattedDate = flightDate.format(formatter);
+
       try
       {
          HttpRequest request = HttpRequest.newBuilder()
-                                          .uri(new URI("https://api.aviationstack.com/v1/flights" + System.getenv("APIKEY") ))
+                                          .uri(new URI("https://api.aviationstack.com/v1/flights?access_key=" + System.getenv("APIKEY") + "&flight_date=" + formattedDate + "&flight_number=" + flightInput))
                                           .GET()
                                           .build();
                                           
