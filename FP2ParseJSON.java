@@ -14,6 +14,8 @@ public class FP2ParseJSON
     public static void main(String[] args) throws IOException
     {
         // Use a file in the same directory with saved flight JSON data.
+        // We are doing this because we can't query specific flights under the "free" plan through the AviationStack API,
+        // so we get tons of data back, and pasting it all here would make this class huge.
         Path fileName = Path.of("flights.json");
         String fileContent = Files.readString(fileName);
 
