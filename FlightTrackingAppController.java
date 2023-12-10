@@ -73,7 +73,7 @@ public class FlightTrackingAppController implements Initializable
    private enum Time { NORMAL, MILITARY };
    private Time time;
    
-   // Keeps track of last time the weather data was updated
+   // Keeps track of last time the flight data was updated
    private Date updateTime;
    
    // Key to persist time format preference
@@ -144,7 +144,7 @@ public class FlightTrackingAppController implements Initializable
       // Some debugging text for the console. Allows us to view returned JSON
       System.out.println(data);      
       
-      // Use GSON to convert the JSON to a POJO (whew, that's a lot of acronyms!)
+      // Use GSON to convert the JSON to a POJO
       // If JSON is not valid then just return
       Gson gson = new Gson();
       try
