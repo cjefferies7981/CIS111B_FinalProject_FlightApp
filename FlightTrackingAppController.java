@@ -190,7 +190,7 @@ public class FlightTrackingAppController implements Initializable
       try
       {
          HttpRequest request = HttpRequest.newBuilder()
-                                          .uri(new URI("https://api.aviationstack.com/v1/flights?access_key=" + System.getenv("APIKEY") + "&flight_iata=AA6383")) // + flightInput))
+                                          .uri(new URI("https://api.aviationstack.com/v1/flights?access_key=" + System.getenv("APIKEY") + "&limit=1&flight_iata=AA6383")) // + flightInput))
                                           .GET()
                                           .build();
                                           
