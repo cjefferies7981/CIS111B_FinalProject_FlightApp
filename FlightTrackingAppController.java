@@ -257,7 +257,7 @@ public class FlightTrackingAppController implements Initializable {
 
       String input = flightInput.getText();
 
-      if (input == null || !input.isEmpty())
+      if (!input.isEmpty())
          updateFlightData();
    }
 
