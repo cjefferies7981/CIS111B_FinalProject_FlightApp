@@ -97,7 +97,7 @@ public class FlightTrackingAppController implements Initializable {
    // Action to refresh time
    @FXML
    protected void updateDates(ActionEvent event) {
-      updateFlightData();
+      timeFormatChangeRadioButton(event);
    }
 
    // Actions to perform when the format radio buttons are pushed
