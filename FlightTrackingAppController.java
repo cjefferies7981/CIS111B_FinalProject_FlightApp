@@ -175,15 +175,14 @@ public class FlightTrackingAppController implements Initializable
       if(this.client == null)
          this.client = HttpClient.newHttpClient();
 
-      // We are only getting the flight on the current date
-      LocalDate flightDate = LocalDate.now();
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-      String formattedDate = flightDate.format(formatter);
+      // LocalDate flightDate = LocalDate.now();
+      // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      // String formattedDate = flightDate.format(formatter);
 
       try
       {
          HttpRequest request = HttpRequest.newBuilder()
-                                          .uri(new URI("https://api.aviationstack.com/v1/flights?access_key=" + System.getenv("APIKEY") + "&flight_date=" + formattedDate + "&flight_number=" + flightInput))
+                                          .uri(new URI("https://api.aviationstack.com/v1/flights?access_key=" + System.getenv("APIKEY") + "&flight_iata=" + flightInput))
                                           .GET()
                                           .build();
                                           
@@ -196,7 +195,6 @@ public class FlightTrackingAppController implements Initializable
          System.out.println("Issue with request");
       }
    }
-   
     
    // "Waking up" applicatoin and setting preserved preferences
    @Override
