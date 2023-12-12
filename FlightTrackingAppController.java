@@ -122,25 +122,25 @@ public class FlightTrackingAppController implements Initializable
       if(this.flight.data != null)
       {
          // Update flight status
-         flightStatus.setText(flightStatus.getText());
+         flightStatus.setText(this.flight.data.flight_status);
          
          // Set the airline
-         airline.setText(airline.getText());
+         airline.setText(this.flight.data.airline[0]);
          
          // Set the aircraft model
-         aircraftModel.setText(aircraftModel.getText());
+         aircraftModel.setText(this.flight.data.aircraft);
          
          // Update the departure time
-         departureDateTime.setText(departureDateTime.getText());
+         departureDateTime.setText(this.flight.data.departure[7]);
          
          // Update the departing airport gate
-         departureAirportGate.setText(departureAirportGate.getText());
+         departureAirportGate.setText(this.flight.data.departure[5]);
          
          // Update the arrival date
-         arrivalDateTime.setText(arrivalDateTime.getText());
+         arrivalDateTime.setText(this.flight.data.arrival[8]);
          
          // Update the arriving airport gate
-         arrivalAirportGate.setText(arrivalAirportGate.getText());
+         arrivalAirportGate.setText(this.flight.data.arrival[5]);
       }
     }
    
