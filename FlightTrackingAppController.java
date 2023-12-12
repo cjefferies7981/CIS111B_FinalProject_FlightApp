@@ -85,9 +85,16 @@ public class FlightTrackingAppController implements Initializable
    
    // Action to perform when the refresh button is pressed
    @FXML 
-   protected void btnFlightStatusButtonAction(ActionEvent event)
+   protected void showFlightStatus(ActionEvent event)
    {
       updateFlightData();       
+   }
+   
+   // Action to refresh time
+   @FXML
+   protected void updateDates(ActionEvent event)
+   {
+      updateFlightData();
    }
    
    // Actions to perform when the format radio buttons are pushed
@@ -109,7 +116,7 @@ public class FlightTrackingAppController implements Initializable
       updateUI();
    }
    
-   // IN PROGRESS
+   // Update values in each property
    protected void updateUI()
    {
       if(this.flight.data != null)
