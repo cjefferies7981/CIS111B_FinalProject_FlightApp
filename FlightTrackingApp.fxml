@@ -22,7 +22,7 @@
                </font>
             </Label>
             <TextField fx:id="flightInput" alignment="CENTER" promptText="Enter your flight number i.e., 1234" />
-            <Button fx:id="btnFlightStatus" mnemonicParsing="false" onAction="#ShowFlightStatus" text="Show Flight Status" />
+            <Button fx:id="btnFlightStatus" mnemonicParsing="false" onAction="#showFlightStatus" text="Show Flight Status" />
             <Label fx:id="messageArea" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="323.0" text="messageArea" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />

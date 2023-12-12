@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.RadioButton;
 import java.util.ResourceBundle;
 import java.util.Date;
@@ -31,7 +32,7 @@ public class FlightTrackingAppController implements Initializable
    private Label flightTracker;
    
    @FXML
-   private Label flightInput;
+   private TextField flightInput;
    
    @FXML
    private Button btnFlightStatus;
@@ -84,9 +85,16 @@ public class FlightTrackingAppController implements Initializable
    
    // Action to perform when the refresh button is pressed
    @FXML 
-   protected void btnFlightStatusButtonAction(ActionEvent event)
+   protected void showFlightStatus(ActionEvent event)
    {
       updateFlightData();       
+   }
+   
+   // Action to refresh time
+   @FXML
+   protected void updateDates(ActionEvent event)
+   {
+      updateFlightData();
    }
    
    // Actions to perform when the format radio buttons are pushed
@@ -108,7 +116,7 @@ public class FlightTrackingAppController implements Initializable
       updateUI();
    }
    
-   // IN PROGRESS
+   // Update values in each property
    protected void updateUI()
    {
       if(this.flight.data != null)
