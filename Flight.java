@@ -1,5 +1,6 @@
-// This is a top-level class to hold returned API data
-public class Flight
-{
-   public Data data;
+public class Flight {
+    String number;
+    String iata;
+    String icao;
+    Object codeshared;
 }

@@ -71,7 +71,10 @@ public class FlightTrackingAppController implements Initializable
    private HttpClient client;
    
    // Top-level class that saves GSON processed JSON data
-   private Flight flight;
+   Root root;
+
+   // Flight data
+   Data data;
    
    // An enum that represents what format to display the time
    private enum Time { NORMAL, MILITARY };
@@ -116,57 +119,24 @@ public class FlightTrackingAppController implements Initializable
       updateUI();
    }
    
-   // Update values in each property
-   protected void updateUI()
-   {
-      if(this.flight.data != null)
-      {
-         // Update flight status
-         flightStatus.setText(this.flight.data.flight_status);
-         
-         // Set the airline
-         airline.setText(this.flight.data.airline[0]);
-         
-         // Set the aircraft model
-         aircraftModel.setText(this.flight.data.aircraft);
-         
-         // Update the departure time
-         departureDateTime.setText(this.flight.data.departure[7]);
-         
-         // Update the departing airport gate
-         departureAirportGate.setText(this.flight.data.departure[5]);
-         
-         // Update the arrival date
-         arrivalDateTime.setText(this.flight.data.arrival[8]);
-         
-         // Update the arriving airport gate
-         arrivalAirportGate.setText(this.flight.data.arrival[5]);
-      }
-    }
-   
-   
    // This method parses the JSON and creates POJO
-   protected void processFlightData(String data)
+   protected void processFlightData(String inputJSON)
    {
             
       // Save the time this data was retrieved to be displayed in the GUI
       this.updateTime = new Date();
       
       // Some debugging text for the console. Allows us to view returned JSON
-      System.out.println(data);      
+      System.out.println(inputJSON);      
       
       // Use GSON to convert the JSON to a POJO
       // If JSON is not valid then just return
       Gson gson = new Gson();
-      try
-      {
-         this.flight = gson.fromJson(data, Flight.class);      
-      }
-      catch (Exception e)
-      {
-         System.out.println("GSON Parsing Failed");
-         return;
-      }            
+
+      Root root = gson.fromJson(inputJSON, Root.class);
+
+      this.data = root.data[0];
+
       // Schedule UI updates on the GUI thread
       Platform.runLater( new Runnable()
       {
@@ -176,6 +146,34 @@ public class FlightTrackingAppController implements Initializable
             }
       });
    }
+
+     // Update values in each property
+     protected void updateUI()
+     {
+        if(this.data != null)
+        {
+           // Update flight status
+           flightStatus.setText(this.data.flight_status);
+           
+           // Set the airline
+           airline.setText(this.data.airline.name);
+           
+           // Set the aircraft model
+           aircraftModel.setText(this.data.aircraft);
+           
+           // Update the departure time
+           departureDateTime.setText(this.data.departure.estimated);
+           
+           // Update the departing airport gate
+           departureAirportGate.setText(this.data.arrival.estimated);
+           
+           // Update the arrival date
+           arrivalDateTime.setText(this.data.arrival.gate);
+           
+           // Update the arriving airport gate
+           arrivalAirportGate.setText(this.data.departure.gate);
+        }
+      }
    
    // This method runs when the user pushes the show flight status button and once the app is initialized
    protected void updateFlightData()
