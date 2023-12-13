@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 public class FlightTrackingAppController implements Initializable {
    // Variables from FXML file using annotations
@@ -115,7 +116,8 @@ public class FlightTrackingAppController implements Initializable {
       z.put(TIME_FORMAT, this.time.toString());
 
       // Reflect changes in user-interface
-      updateUI();
+      if (this.data != null)
+         updateUI();
    }
 
    // This method parses the JSON and creates POJO
@@ -133,7 +135,7 @@ public class FlightTrackingAppController implements Initializable {
 
       Root root = gson.fromJson(inputJSON, Root.class);
 
-      this.data = root.data[0];
+      this.data = root.pagination.count > 0 ? root.data[0] : null;
 
       // Schedule UI updates on the GUI thread
       Platform.runLater(new Runnable() {
@@ -147,7 +149,7 @@ public class FlightTrackingAppController implements Initializable {
    protected void updateUI() {
       if (this.data != null) {
          // Update flight status
-         flightStatus.setText(this.data.flight_status);
+         flightStatus.setText(uppercaseFirstLetter(this.data.flight_status));
 
          // Set the airline
          airline.setText(this.data.airline.name);
@@ -166,6 +168,25 @@ public class FlightTrackingAppController implements Initializable {
 
          // Update the arriving airport gate
          arrivalAirportGate.setText(this.data.arrival.gate);
+
+         messageArea.setText("");
+      } else {
+         flightStatus.setText("");
+         airline.setText("");
+         aircraftModel.setText("");
+         departureDateTime.setText("");
+         departureAirportGate.setText("");
+         arrivalDateTime.setText("");
+         arrivalAirportGate.setText("");
+         messageArea.setText("Flight not found!");
+      }
+   }
+
+   public static String uppercaseFirstLetter(String str) {
+      if (str == null || str.isEmpty()) {
+         return str;
+      } else {
+         return Character.toUpperCase(str.charAt(0)) + str.substring(1);
       }
    }
 

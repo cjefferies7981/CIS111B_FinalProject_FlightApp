@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="346.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FlightTrackingAppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="346.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FlightTrackingAppController">
    <children>
       <VBox fx:id="upperVBox" alignment="TOP_CENTER" layoutX="12.0" layoutY="9.0" prefHeight="224.0" prefWidth="323.0" spacing="10.0">
          <children>
@@ -27,21 +27,17 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="flightStatus" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="372.0" text="flightStatus" textAlignment="CENTER">
+            <Label fx:id="flightStatus" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="airline" alignment="CENTER" prefHeight="17.0" prefWidth="413.0" text="airline" textAlignment="CENTER">
+            <Label fx:id="airline" alignment="CENTER" prefHeight="17.0" prefWidth="413.0" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="aircraftModel" alignment="CENTER" prefHeight="17.0" prefWidth="390.0" text="aircraftModel" textAlignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
+            <Label fx:id="aircraftModel" alignment="CENTER" prefHeight="17.0" prefWidth="390.0" textAlignment="CENTER" />
          </children>
          <padding>
             <Insets top="10.0" />
@@ -49,12 +45,22 @@
       </VBox>
       <VBox fx:id="leftVBox" layoutX="12.0" layoutY="292.0" prefHeight="75.0" prefWidth="156.0" spacing="10.0">
          <children>
-            <Label fx:id="departureDateTime" alignment="CENTER" prefHeight="21.0" prefWidth="156.0" text="departureDateTime">
+            <Label text="Estimated Departure" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="departureDateTime" prefHeight="21.0" prefWidth="156.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="departureAirportGate" alignment="CENTER" prefHeight="17.0" prefWidth="164.0" text="departureAirportGate">
+            <Label text="Gate">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="departureAirportGate" prefHeight="17.0" prefWidth="164.0">
                <font>
                   <Font size="14.0" />
                </font>
@@ -63,26 +69,37 @@
       </VBox>
       <VBox fx:id="rightVBox" layoutX="179.0" layoutY="292.0" prefHeight="75.0" prefWidth="156.0" spacing="10.0">
          <children>
-            <Label fx:id="arrivalDateTime" alignment="CENTER" prefHeight="17.0" prefWidth="158.0" text="arrivalDateTime">
+            <Label text="Estimated Arrival">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="arrivalDateTime" prefHeight="17.0" prefWidth="158.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="arrivalAirportGate" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="180.0" text="arrivalAirportGate" textAlignment="CENTER">
+            <Label text="Gate">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="arrivalAirportGate" contentDisplay="CENTER" prefHeight="42.0" prefWidth="156.0" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutX="1.0" layoutY="367.0" prefHeight="43.0" prefWidth="346.0" spacing="10.0">
+      <HBox alignment="CENTER" layoutX="1.0" layoutY="408.0" prefHeight="43.0" prefWidth="346.0" spacing="10.0">
          <children>
-            <RadioButton fx:id="normalTime" mnemonicParsing="false" onAction="#updateDates" text="normalTime">
+            <Label text="Time Format" />
+            <RadioButton fx:id="normalTime" mnemonicParsing="false" onAction="#updateDates" text="12 Hour">
                <toggleGroup>
                   <ToggleGroup fx:id="timePreference" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="militaryTime" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateDates" text="militaryTime" toggleGroup="$timePreference" />
+            <RadioButton fx:id="militaryTime" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateDates" text="24 Hour" toggleGroup="$timePreference" />
          </children>
       </HBox>
    </children>
